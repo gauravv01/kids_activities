@@ -357,16 +357,48 @@ function initializeMatching() {
     matchingContainer.appendChild(svg);
     
     numberItems.forEach(item => {
+        // Make draggable with enhanced features
+        item.draggable = true;
+        item.style.cursor = 'grab';
+        
+        // Voice on hover
+        item.addEventListener('mouseenter', function() {
+            speakText(`Number ${this.textContent}`);
+            this.style.transform = 'scale(1.05)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        // Drag functionality
+        item.addEventListener('dragstart', function(e) {
+            this.classList.add('dragging');
+            this.style.cursor = 'grabbing';
+            playDragStartSound();
+            e.dataTransfer.setData('text/plain', this.dataset.value);
+            e.dataTransfer.effectAllowed = 'move';
+            
+            // Add 3D tilt effect
+            this.style.transform = 'rotateX(10deg) rotateY(5deg) scale(1.1)';
+        });
+        
+        item.addEventListener('dragend', function(e) {
+            this.classList.remove('dragging');
+            this.style.cursor = 'grab';
+            this.style.transform = 'scale(1)';
+        });
+        
+        // Click functionality (alternative)
         item.addEventListener('click', function() {
+            playClickSound();
             if (this.classList.contains('selected')) {
                 this.classList.remove('selected');
                 selectedMatches = selectedMatches.filter(match => match.number !== this);
             } else {
-                // Clear other selections
                 numberItems.forEach(num => num.classList.remove('selected'));
                 this.classList.add('selected');
                 
-                // Store selection
                 const existingMatch = selectedMatches.find(match => match.number === this);
                 if (!existingMatch) {
                     selectedMatches.push({ number: this, word: null });
@@ -376,21 +408,70 @@ function initializeMatching() {
     });
     
     wordItems.forEach(item => {
+        // Voice on hover
+        item.addEventListener('mouseenter', function() {
+            speakText(this.textContent);
+            this.style.transform = 'scale(1.02)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        // Drag and drop functionality
+        item.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drop-zone', 'glow-effect');
+            e.dataTransfer.dropEffect = 'move';
+        });
+        
+        item.addEventListener('dragleave', function(e) {
+            this.classList.remove('drop-zone', 'glow-effect');
+        });
+        
+        item.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drop-zone', 'glow-effect');
+            
+            const draggedValue = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.querySelector(`[data-value="${draggedValue}"]`);
+            
+            if (draggedElement && draggedValue === this.dataset.value) {
+                // Correct match
+                playMatchSuccessSound();
+                speakText("Perfect match!");
+                draggedElement.classList.add('matched');
+                this.classList.add('matched');
+                drawLine(draggedElement, this, svg);
+                
+                // Add to matches array
+                selectedMatches.push({ number: draggedElement, word: this });
+                
+                // 3D celebration effect
+                create3DCelebrationPulse(this);
+            } else {
+                // Incorrect match
+                playMatchErrorSound();
+                speakText("Try again!");
+                createErrorShake(this);
+            }
+        });
+        
+        // Click functionality (alternative)
         item.addEventListener('click', function() {
+            playClickSound();
             const selectedNumber = document.querySelector('#number-word-match .number-item.selected');
             if (selectedNumber) {
-                // Create match
                 const matchIndex = selectedMatches.findIndex(match => match.number === selectedNumber);
                 if (matchIndex !== -1) {
                     selectedMatches[matchIndex].word = this;
                     
-                    // Visual feedback
                     selectedNumber.classList.remove('selected');
                     selectedNumber.classList.add('matched');
                     this.classList.add('matched');
                     
-                    // Draw line between matched items
                     drawLine(selectedNumber, this, svg);
+                    playMatchSuccessSound();
                 }
             }
         });
@@ -517,10 +598,37 @@ function showFeedback(feedbackId, correct, total) {
         feedback.className = 'feedback correct';
         createCelebrationEffect();
         streak++;
-    } else {
-        feedback.textContent = `You got ${correct} out of ${total} correct (${percentage}%). Keep trying!`;
+        
+        // Perfect score voice feedback
+        setTimeout(() => {
+            speakText(`Amazing! Perfect score! You got all ${total} answers correct!`);
+        }, 1000);
+    } else if (correct === 0) {
+        feedback.textContent = `Oh no! All answers are incorrect. Don't worry, try again!`;
         feedback.className = 'feedback incorrect';
         streak = 0;
+        
+        // All incorrect voice feedback
+        setTimeout(() => {
+            speakText("Oh no, all incorrect! But don't worry, you can do it! Try again!");
+        }, 500);
+    } else {
+        feedback.textContent = `You got ${correct} out of ${total} correct (${percentage}%). Keep trying!`;
+        feedback.className = 'feedback partial';
+        streak = 0;
+        
+        // Partial score voice feedback
+        setTimeout(() => {
+            if (percentage >= 80) {
+                speakText(`Great job! You got ${correct} out of ${total} correct! Almost perfect!`);
+            } else if (percentage >= 60) {
+                speakText(`Good work! You got ${correct} out of ${total} correct! Keep going!`);
+            } else if (percentage >= 40) {
+                speakText(`Nice try! You got ${correct} out of ${total} correct! You're learning!`);
+            } else {
+                speakText(`You got ${correct} out of ${total} correct. Keep practicing, you'll get better!`);
+            }
+        }, 500);
     }
 }
 
@@ -1196,6 +1304,173 @@ document.addEventListener('DOMContentLoaded', function() {
 // Save progress periodically
 setInterval(saveProgress, 30000); // Save every 30 seconds
 
+// Enhanced Sound Effects and Voice Features
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        // Cancel any current speech
+        speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.3;
+        utterance.volume = 0.7;
+        
+        // Use kid-friendly voice
+        const voices = speechSynthesis.getVoices();
+        const kidVoice = voices.find(voice => 
+            voice.name.includes('Samantha') || 
+            voice.name.includes('Karen') ||
+            voice.name.toLowerCase().includes('female')
+        );
+        
+        if (kidVoice) {
+            utterance.voice = kidVoice;
+        }
+        
+        speechSynthesis.speak(utterance);
+    }
+}
+
+function playDragStartSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playMatchSuccessSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Play a pleasant chime
+        const frequencies = [523.25, 659.25, 783.99]; // C-E-G chord
+        frequencies.forEach((freq, index) => {
+            setTimeout(() => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                oscillator.type = 'triangle';
+                gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.4);
+            }, index * 100);
+        });
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playMatchErrorSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator.type = 'sawtooth';
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.3);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playClickSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
+        oscillator.type = 'sine';
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function create3DCelebrationPulse(element) {
+    element.style.animation = 'celebrationPulse3D 0.6s ease-out';
+    setTimeout(() => {
+        element.style.animation = '';
+    }, 600);
+}
+
+function createErrorShake(element) {
+    element.style.animation = 'errorShake3D 0.5s ease-out';
+    setTimeout(() => {
+        element.style.animation = '';
+    }, 500);
+}
+
+function createMiniCelebration(element) {
+    // Create small celebration around the element
+    const rect = element.getBoundingClientRect();
+    const particles = document.createElement('div');
+    particles.className = 'mini-celebration';
+    particles.style.position = 'fixed';
+    particles.style.left = rect.left + rect.width / 2 + 'px';
+    particles.style.top = rect.top + rect.height / 2 + 'px';
+    particles.style.pointerEvents = 'none';
+    particles.style.zIndex = '10000';
+    
+    document.body.appendChild(particles);
+    
+    // Create sparkles
+    for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.textContent = '✨';
+        sparkle.className = 'mini-sparkle';
+        sparkle.style.position = 'absolute';
+        sparkle.style.fontSize = '1rem';
+        sparkle.style.animation = `miniSparkle 0.8s ease-out ${i * 0.1}s forwards`;
+        
+        const angle = (i / 8) * Math.PI * 2;
+        const distance = 30;
+        sparkle.style.left = Math.cos(angle) * distance + 'px';
+        sparkle.style.top = Math.sin(angle) * distance + 'px';
+        
+        particles.appendChild(sparkle);
+    }
+    
+    setTimeout(() => {
+        particles.remove();
+    }, 1000);
+}
+
 // Shape Games Implementation
 
 // Shape Matching Game (Bears)
@@ -1585,4 +1860,92 @@ function resetObjectProperties() {
     });
     
     clearFeedback('object-properties-feedback');
+}
+
+// Enhanced Dynamic Features for Unique Experience
+
+// Universal voice readout system
+function addVoiceToAllElements() {
+    // Add voice to all interactive elements
+    const voiceElements = document.querySelectorAll('.digit-btn, .grid-cell, .bird, .bead, .bag, .color-btn, .shape-name-item, .shape-object-item, .trace-shape, .object-display, .colorable-shape');
+    
+    voiceElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            let textToSpeak = '';
+            
+            // Determine what to say based on element type
+            if (this.classList.contains('digit-btn')) {
+                textToSpeak = `Digit ${this.textContent}`;
+            } else if (this.classList.contains('grid-cell') && this.textContent) {
+                textToSpeak = `Number ${this.textContent}`;
+            } else if (this.classList.contains('bird')) {
+                const colors = ['red', 'green', 'purple', 'yellow', 'orange'];
+                const colorClass = Array.from(this.classList).find(cls => colors.includes(cls.split('-')[0]));
+                textToSpeak = `${colorClass ? colorClass.split('-')[0] : 'Colorful'} bird`;
+            } else if (this.classList.contains('bead')) {
+                textToSpeak = this.classList.contains('inactive') ? 'Empty bead space' : 'Counting bead';
+            } else if (this.classList.contains('bag')) {
+                const digits = this.querySelector('.digits')?.textContent;
+                textToSpeak = `Bag with digits ${digits}`;
+            } else if (this.classList.contains('color-btn')) {
+                textToSpeak = `${this.textContent} color`;
+            } else if (this.classList.contains('shape-name-item')) {
+                textToSpeak = `Shape name: ${this.textContent}`;
+            } else if (this.classList.contains('shape-object-item')) {
+                textToSpeak = 'Shape object to match';
+            } else if (this.classList.contains('trace-shape')) {
+                textToSpeak = 'Shape for tracing';
+            } else if (this.classList.contains('object-display')) {
+                textToSpeak = 'Object to analyze';
+            } else if (this.classList.contains('colorable-shape')) {
+                const shapeType = this.dataset.shape;
+                textToSpeak = `${shapeType} shape to color`;
+            } else if (this.textContent) {
+                textToSpeak = this.textContent;
+            }
+            
+            if (textToSpeak) {
+                speakText(textToSpeak);
+            }
+            
+            // Add 3D hover effect
+            this.style.transform = 'perspective(1000px) rotateX(8deg) rotateY(8deg) translateZ(15px) scale(1.08)';
+            this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.2)';
+            this.style.filter = 'brightness(1.1)';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+            this.style.boxShadow = '';
+            this.style.filter = '';
+        });
+    });
+}
+
+// Enhanced game initialization with voice features
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        addVoiceToAllElements();
+        addDynamicVoiceovers();
+    }, 2000);
+});
+
+// Dynamic contextual voiceovers
+function addDynamicVoiceovers() {
+    // Welcome message
+    setTimeout(() => {
+        speakText("Welcome to Kids Math Games! Hover over any element to hear what it is. Have fun learning!");
+    }, 3000);
+    
+    // Game switching announcements
+    const gameButtons = document.querySelectorAll('.game-btn');
+    gameButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const gameName = this.textContent.replace(/[^a-zA-Z\s]/g, '').trim();
+            setTimeout(() => {
+                speakText(`Now playing ${gameName}! Let's have some fun!`);
+            }, 500);
+        });
+    });
 }
