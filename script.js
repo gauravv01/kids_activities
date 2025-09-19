@@ -543,61 +543,595 @@ function updateScore(points = 0) {
 }
 
 function createCelebrationEffect() {
+    // Play crazy celebration sound and amazing voice with sound effects
+    playCelebrationSound();
+    setTimeout(() => playVoiceWithSoundEffects(), 300);
+    
+    // Create main celebration container
     const celebrationContainer = document.createElement('div');
-    celebrationContainer.className = 'celebration-stars';
+    celebrationContainer.className = 'celebration-container';
     document.body.appendChild(celebrationContainer);
     
-    // Create falling stars
-    for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.textContent = '⭐';
-            star.style.left = Math.random() * window.innerWidth + 'px';
-            celebrationContainer.appendChild(star);
-            
-            setTimeout(() => {
-                star.remove();
-            }, 2000);
-        }, i * 200);
-    }
+    // Add crazy celebration message with multiple animations
+    const message = document.createElement('div');
+    message.className = 'celebration-message';
+    const crazyMessages = [
+        '🎉 WOOOHOOO! 🎉',
+        '🌟 AMAZING! 🌟', 
+        '🚀 SUPERSTAR! 🚀',
+        '🎊 INCREDIBLE! 🎊',
+        '⭐ FANTASTIC! ⭐',
+        '🏆 CHAMPION! 🏆',
+        '💎 BRILLIANT! 💎',
+        '🎪 SPECTACULAR! 🎪'
+    ];
+    const randomMessage = crazyMessages[Math.floor(Math.random() * crazyMessages.length)];
     
+    message.innerHTML = `
+        <div class="celebration-text crazy-bounce">${randomMessage}</div>
+        <div class="celebration-subtext rainbow-text">Perfect Score!</div>
+        <div class="celebration-points pulse-glow">+${streak > 1 ? '20' : '15'} Points!</div>
+        <div class="celebration-extra">🏆 YOU'RE THE BEST! 🏆</div>
+    `;
+    celebrationContainer.appendChild(message);
+    
+    // Create multiple screen effects
+    createCrazyScreenEffects();
+    
+    // Create massive confetti explosion
+    createMegaConfetti(celebrationContainer);
+    
+    // Create floating crazy emojis
+    createCrazyFloatingEmojis(celebrationContainer);
+    
+    // Create multiple fireworks
+    createMegaFireworks(celebrationContainer);
+    
+    // Create dancing rainbow
+    createDancingRainbow(celebrationContainer);
+    
+    // Create explosive particle burst
+    createExplosiveParticleBurst(celebrationContainer);
+    
+    // Create bouncing stars
+    createBouncingStars(celebrationContainer);
+    
+    // Create spinning shapes
+    createSpinningShapes(celebrationContainer);
+    
+    // Create floating balloons
+    createFloatingBalloons(celebrationContainer);
+    
+    // Remove everything after longer animation
     setTimeout(() => {
         celebrationContainer.remove();
-    }, 3000);
+    }, 7000);
 }
 
-// Sound effects (simple beep sounds using Web Audio API)
+function createScreenFlash() {
+    const flash = document.createElement('div');
+    flash.className = 'screen-flash';
+    document.body.appendChild(flash);
+    
+    setTimeout(() => {
+        flash.remove();
+    }, 300);
+}
+
+function createCrazyScreenEffects() {
+    // Multiple screen flashes with different colors
+    const colors = ['rgba(255,255,255,0.8)', 'rgba(255,215,0,0.6)', 'rgba(255,20,147,0.6)', 'rgba(0,255,255,0.6)'];
+    
+    colors.forEach((color, index) => {
+        setTimeout(() => {
+            const flash = document.createElement('div');
+            flash.className = 'crazy-screen-flash';
+            flash.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+            document.body.appendChild(flash);
+            
+            setTimeout(() => flash.remove(), 400);
+        }, index * 200);
+    });
+    
+    // Screen shake effect
+    document.body.style.animation = 'screenShake 0.8s ease-in-out';
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 800);
+}
+
+function createMegaConfetti(container) {
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#fdcb6e'];
+    const shapes = ['▲', '●', '■', '♦', '★', '♥', '♠', '♣', '◆', '▼', '◀', '▶'];
+    
+    // Create 100 confetti pieces (double the original)
+    for (let i = 0; i < 100; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.className = 'mega-confetti-piece';
+            confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+            confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confetti.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            confetti.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            container.appendChild(confetti);
+        }, i * 30);
+    }
+}
+
+function createCrazyFloatingEmojis(container) {
+    const emojis = ['🎊', '🎉', '🌟', '✨', '🎈', '🎁', '🏆', '👏', '🥳', '💫', '🎪', '🎭', '🎨', '🎯', '🎲', '🎸', '🎺', '🥇', '🏅', '💎'];
+    
+    for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.className = 'crazy-floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * window.innerWidth + 'px';
+            emoji.style.animationDelay = Math.random() * 2 + 's';
+            emoji.style.fontSize = (Math.random() * 3 + 2) + 'rem';
+            container.appendChild(emoji);
+        }, i * 80);
+    }
+}
+
+function createMegaFireworks(container) {
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.className = 'mega-firework';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * (window.innerHeight / 2) + 'px';
+            container.appendChild(firework);
+            
+            // Create more explosion particles
+            for (let j = 0; j < 20; j++) {
+                const particle = document.createElement('div');
+                particle.className = 'mega-firework-particle';
+                particle.style.transform = `rotate(${j * 18}deg)`;
+                particle.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                firework.appendChild(particle);
+            }
+        }, i * 200);
+    }
+}
+
+function createDancingRainbow(container) {
+    const rainbow = document.createElement('div');
+    rainbow.className = 'dancing-rainbow';
+    container.appendChild(rainbow);
+    
+    // Add multiple rainbow layers for crazy effect
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+            const extraRainbow = document.createElement('div');
+            extraRainbow.className = 'dancing-rainbow-layer';
+            extraRainbow.style.animationDelay = i * 0.5 + 's';
+            container.appendChild(extraRainbow);
+        }, i * 300);
+    }
+}
+
+function createExplosiveParticleBurst(container) {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    
+    // Create multiple bursts
+    for (let burst = 0; burst < 5; burst++) {
+        setTimeout(() => {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'explosive-particle';
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                
+                const angle = (i / 50) * Math.PI * 2;
+                const distance = 150 + Math.random() * 300;
+                const endX = centerX + Math.cos(angle) * distance;
+                const endY = centerY + Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--end-x', endX + 'px');
+                particle.style.setProperty('--end-y', endY + 'px');
+                particle.style.animationDelay = Math.random() * 0.5 + 's';
+                particle.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                
+                container.appendChild(particle);
+            }
+        }, burst * 400);
+    }
+}
+
+function createBouncingStars(container) {
+    const stars = ['⭐', '🌟', '✨', '💫', '🌠'];
+    
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const star = document.createElement('div');
+            star.className = 'bouncing-star';
+            star.textContent = stars[Math.floor(Math.random() * stars.length)];
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+            container.appendChild(star);
+        }, i * 100);
+    }
+}
+
+function createSpinningShapes(container) {
+    const shapes = ['🔴', '🟡', '🟢', '🔵', '🟣', '🟠', '⚫', '⚪', '🔶', '🔷', '🔸', '🔹'];
+    
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const shape = document.createElement('div');
+            shape.className = 'spinning-shape';
+            shape.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+            shape.style.left = Math.random() * window.innerWidth + 'px';
+            shape.style.top = Math.random() * window.innerHeight + 'px';
+            shape.style.animationDelay = Math.random() * 3 + 's';
+            shape.style.fontSize = (Math.random() * 3 + 2) + 'rem';
+            container.appendChild(shape);
+        }, i * 150);
+    }
+}
+
+function createFloatingBalloons(container) {
+    const balloons = ['🎈', '🎈', '🎈', '🎈', '🎈'];
+    const colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+    
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            const balloon = document.createElement('div');
+            balloon.className = 'floating-balloon';
+            balloon.textContent = balloons[i % balloons.length];
+            balloon.style.left = Math.random() * window.innerWidth + 'px';
+            balloon.style.color = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.animationDelay = Math.random() * 1 + 's';
+            balloon.style.fontSize = (Math.random() * 2 + 2) + 'rem';
+            container.appendChild(balloon);
+        }, i * 200);
+    }
+}
+
+function createParticleBurst(container) {
+    // Legacy function - keeping for compatibility
+    createExplosiveParticleBurst(container);
+}
+
+function createConfetti(container) {
+    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
+    const shapes = ['▲', '●', '■', '♦', '★', '♥'];
+    
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+            confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(confetti);
+        }, i * 50);
+    }
+}
+
+function createFloatingEmojis(container) {
+    const emojis = ['🎊', '🎉', '🌟', '✨', '🎈', '🎁', '🏆', '👏', '🥳', '💫'];
+    
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const emoji = document.createElement('div');
+            emoji.className = 'floating-emoji';
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * window.innerWidth + 'px';
+            emoji.style.animationDelay = Math.random() * 1 + 's';
+            container.appendChild(emoji);
+        }, i * 100);
+    }
+}
+
+function createFireworks(container) {
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * (window.innerHeight / 2) + 'px';
+            container.appendChild(firework);
+            
+            // Create explosion particles
+            for (let j = 0; j < 12; j++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle';
+                particle.style.transform = `rotate(${j * 30}deg)`;
+                firework.appendChild(particle);
+            }
+        }, i * 300);
+    }
+}
+
+function createRainbowEffect(container) {
+    const rainbow = document.createElement('div');
+    rainbow.className = 'rainbow-effect';
+    container.appendChild(rainbow);
+}
+
+// Enhanced Sound Effects using Web Audio API
 function playSuccessSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.5);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playErrorSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime); // Lower frequency
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.3);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playCelebrationSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Create a celebration melody
+        const notes = [
+            { freq: 523.25, time: 0 },    // C5
+            { freq: 659.25, time: 0.2 },  // E5
+            { freq: 783.99, time: 0.4 },  // G5
+            { freq: 1046.5, time: 0.6 },  // C6
+            { freq: 783.99, time: 0.8 },  // G5
+            { freq: 1046.5, time: 1.0 }   // C6
+        ];
+        
+        notes.forEach(note => {
+            setTimeout(() => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime);
+                oscillator.type = 'triangle'; // Warmer sound
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }, note.time * 1000);
+        });
+        
+        // Add some sparkle sounds
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(1500 + Math.random() * 1000, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }, Math.random() * 2000);
+        }
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playKidsVictoryVoice() {
+    // Create multiple exciting voice announcements with different styles
+    if ('speechSynthesis' in window) {
+        // First announcement - Super excited
+        setTimeout(() => playExcitedVoice(), 100);
+        
+        // Second announcement - Encouraging  
+        setTimeout(() => playEncouragingVoice(), 2000);
+        
+        // Third announcement - Celebration
+        setTimeout(() => playCelebrationVoice(), 3500);
+    }
+}
+
+function playExcitedVoice() {
+    const excitedPhrases = [
+        "WOOOOOHOOOOO! That was absolutely AMAZING!",
+        "YAAAAAAY! You're so FANTASTIC!",
+        "WOW WOW WOW! That was INCREDIBLE!",
+        "OH MY GOSH! You got it PERFECT!",
+        "HOORAY HOORAY! You're BRILLIANT!",
+        "SUPER DUPER AWESOME! Way to go!",
+        "SPECTACULAR! You're a ROCKSTAR!",
+        "OUTSTANDING! You nailed it!"
+    ];
     
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
+    const phrase = excitedPhrases[Math.floor(Math.random() * excitedPhrases.length)];
+    const utterance = new SpeechSynthesisUtterance(phrase);
     
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime); // Lower frequency
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    // Super excited settings - more kid-friendly
+    utterance.rate = 1.2; // Slightly slower so kids can understand
+    utterance.pitch = 1.7; // Very high pitch for excitement
+    utterance.volume = 1.0;
     
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.3);
+    // Add emphasis and pauses for better delivery
+    utterance.text = phrase.replace(/!/g, '! '); // Add pauses after exclamations
+    
+    selectBestVoice(utterance, speechSynthesis.getVoices());
+    speechSynthesis.speak(utterance);
+}
+
+function playEncouragingVoice() {
+    const encouragingPhrases = [
+        "You are absolutely INCREDIBLE! Your brain is super smart!",
+        "You're a SUPERSTAR! Math is your superpower!",
+        "What an AMAZING job! You're getting better and better!",
+        "You're a true CHAMPION! I believe in you!",
+        "FANTASTIC work! You make learning look so easy!",
+        "You're a MATH WIZARD! Your skills are magical!",
+        "BRILLIANT thinking! You're so clever!",
+        "AWESOME sauce! You're the coolest!"
+    ];
+    
+    const phrase = encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)];
+    const utterance = new SpeechSynthesisUtterance(phrase);
+    
+    // Encouraging settings - warm and supportive
+    utterance.rate = 1.0; // Slower for warmth
+    utterance.pitch = 1.6; // High but not too high
+    utterance.volume = 0.95;
+    
+    // Add pauses for better delivery
+    utterance.text = phrase.replace(/!/g, '! ');
+    
+    selectBestVoice(utterance, speechSynthesis.getVoices());
+    speechSynthesis.speak(utterance);
+}
+
+function playCelebrationVoice() {
+    const celebrationPhrases = [
+        "Let's PARTY! You deserve a big celebration! Dance time!",
+        "HIGH FIVE! You're the COOLEST kid ever! So proud!",
+        "VICTORY DANCE! You're absolutely AMAZING! Keep going!",
+        "CELEBRATION TIME! You're a shining STAR! Woohoo!",
+        "PARTY PARTY! You ROCK this game! You're the best!",
+        "HAPPY DANCE! You're UNSTOPPABLE! So so proud!",
+        "FIREWORKS TIME! You're SPECTACULAR! Amazing job!",
+        "CONFETTI PARTY! You're BRILLIANT! Keep shining!"
+    ];
+    
+    const phrase = celebrationPhrases[Math.floor(Math.random() * celebrationPhrases.length)];
+    const utterance = new SpeechSynthesisUtterance(phrase);
+    
+    // Celebration settings - fun and energetic
+    utterance.rate = 1.1;
+    utterance.pitch = 1.5; // Fun but clear
+    utterance.volume = 1.0;
+    
+    // Add pauses and emphasis
+    utterance.text = phrase.replace(/!/g, '! ').replace(/PARTY/g, 'PAR-TY');
+    
+    selectBestVoice(utterance, speechSynthesis.getVoices());
+    speechSynthesis.speak(utterance);
+}
+
+function selectBestVoice(utterance, voices) {
+    // Enhanced priority order for the most kid-friendly voices
+    const preferredVoiceNames = [
+        // High-quality kid-friendly voices
+        'Samantha', 'Karen', 'Victoria', 'Allison', 'Susan', 'Zoe', 'Tessa', 'Kathy',
+        'Princess', 'Alice', 'Amelie', 'Anna', 'Ellen', 'Fiona', 'Moira',
+        // Google voices (usually high quality)
+        'Google UK English Female', 'Google US English Female', 'Google français',
+        // Microsoft voices
+        'Microsoft Zira', 'Microsoft Hazel', 'Microsoft Eva', 'Microsoft Aria',
+        // System voices
+        'Female', 'en-US Female', 'en-GB Female', 'en-AU Female'
+    ];
+    
+    // Try to find the best voice
+    for (const preferredName of preferredVoiceNames) {
+        const voice = voices.find(v => 
+            v.name.includes(preferredName) || 
+            v.name.toLowerCase().includes(preferredName.toLowerCase())
+        );
+        if (voice) {
+            utterance.voice = voice;
+            console.log('Selected voice:', voice.name);
+            return;
+        }
+    }
+    
+    // Fallback: find any female voice
+    const femaleVoice = voices.find(voice => 
+        voice.name.toLowerCase().includes('female') ||
+        voice.name.toLowerCase().includes('woman') ||
+        voice.gender === 'female' ||
+        voice.name.toLowerCase().includes('girl')
+    );
+    
+    if (femaleVoice) {
+        utterance.voice = femaleVoice;
+        console.log('Using female fallback voice:', femaleVoice.name);
+    } else {
+        console.log('Using default system voice');
+    }
+}
+
+// Add fun sound effects before voice announcements
+function playVoiceWithSoundEffects() {
+    // Play a fun "ding" sound before voice
+    playChimeSound();
+    
+    // Then play the voice after a short delay
+    setTimeout(() => playKidsVictoryVoice(), 200);
+}
+
+function playChimeSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Create a pleasant chime sound
+        const frequencies = [523.25, 659.25, 783.99]; // C, E, G chord
+        
+        frequencies.forEach((freq, index) => {
+            setTimeout(() => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.8);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.8);
+            }, index * 100);
+        });
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 // Add sound effects to feedback
