@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Math Games - Fun Learning Activities</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Kids Math Games 🎮</h1>
+            <p>Fun and Interactive Math Learning Activities!</p>
+        </header>
+
+        <nav class="game-selector">
+            <button class="game-btn active" data-game="number-grid">🎯 Complete Number Grid</button>
+            <button class="game-btn" data-game="comma-birds">🐦 Comma & Birds Game</button>
+            <button class="game-btn" data-game="abacus-game">🧮 Abacus Place Value</button>
+            <button class="game-btn" data-game="greatest-smallest">📊 Greatest & Smallest</button>
+            <button class="game-btn" data-game="number-word-match">🔗 Number Word Match</button>
+            <button class="game-btn" data-game="digit-bags">💰 Digit Arrangement</button>
+            <button class="game-btn" data-game="shape-matching">🐻 Shape Matching</button>
+            <button class="game-btn" data-game="helicopter-coloring">🚁 Helicopter Coloring</button>
+            <button class="game-btn" data-game="shape-properties">📝 Shape Properties</button>
+            <button class="game-btn" data-game="shape-analysis">📊 Shape Analysis</button>
+            <button class="game-btn" data-game="object-properties">🎲 Object Properties</button>
+        </nav>
+
+        <!-- Number Grid Game -->
+        <div class="game-container active" id="number-grid">
+            <div class="game-header">
+                <div class="try-this-badge">
+                    <span class="owl-mascot">🦉</span>
+                    <span class="try-text">TRY THIS</span>
+                </div>
+                <h2>1. Complete the number grid.</h2>
+            </div>
+            <div class="game-content">
+                <div class="grid-container">
+                    <div class="number-grid" id="main-grid">
+                        <div class="grid-cell given">6,559</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,568</div>
+                        
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,570</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,577</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,581</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,586</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,592</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell given">6,595</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell given">6,604</div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell blue-pattern"></div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkGridAnswer()">Check Grid</button>
+                    <button class="btn-secondary" onclick="resetGridGame()">New Grid</button>
+                </div>
+                <div class="feedback" id="grid-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Comma and Birds Game -->
+        <div class="game-container" id="comma-birds">
+            <div class="game-header">
+                <h2>2. Put commas correctly and write the numbers.</h2>
+            </div>
+            <div class="game-content">
+                <div class="birds-scene">
+                    <div class="bird-number-pair">
+                        <div class="bird red-bird">🐦</div>
+                        <div class="number-input-container">
+                            <input type="text" class="number-input" data-answer="3,672" placeholder="3672">
+                        </div>
+                    </div>
+                    <div class="bird-number-pair">
+                        <div class="bird green-bird">🐦</div>
+                        <div class="number-input-container">
+                            <input type="text" class="number-input" data-answer="5,913" placeholder="5913">
+                        </div>
+                    </div>
+                    <div class="bird-number-pair">
+                        <div class="bird purple-bird">🐦</div>
+                        <div class="number-input-container">
+                            <input type="text" class="number-input" data-answer="8,460" placeholder="8460">
+                        </div>
+                    </div>
+                    <div class="bird-number-pair">
+                        <div class="bird yellow-bird">🐦</div>
+                        <div class="number-input-container">
+                            <input type="text" class="number-input" data-answer="1,548" placeholder="1548">
+                        </div>
+                    </div>
+                    <div class="bird-number-pair">
+                        <div class="bird orange-bird">🐦</div>
+                        <div class="number-input-container">
+                            <input type="text" class="number-input" data-answer="7,205" placeholder="7205">
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkCommaGame()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetCommaGame()">Reset</button>
+                </div>
+                <div class="feedback" id="comma-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Abacus Place Value Game -->
+        <div class="game-container" id="abacus-game">
+            <div class="game-header">
+                <div class="try-this-badge">
+                    <span class="owl-mascot">🦉</span>
+                    <span class="try-text">TRY THIS</span>
+                </div>
+                <h2>Put beads to show these numbers on the abacus. Also, write the number names.</h2>
+            </div>
+            <div class="game-content">
+                <div class="abacus-problems">
+                    <div class="abacus-problem">
+                        <div class="problem-number">1.</div>
+                        <div class="abacus-container">
+                            <div class="abacus-frame">
+                                <div class="abacus-column">
+                                    <div class="column-header th">Th</div>
+                                    <div class="bead-area" data-place="thousands">
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                    </div>
+                                    <div class="place-value">4</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header h">H</div>
+                                    <div class="bead-area" data-place="hundreds">
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                    </div>
+                                    <div class="place-value">0</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header t">T</div>
+                                    <div class="bead-area" data-place="tens">
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                        <div class="bead" data-value="10">●</div>
+                                    </div>
+                                    <div class="place-value">9</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header o">O</div>
+                                    <div class="bead-area" data-place="ones">
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                    </div>
+                                    <div class="place-value">8</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-name-input">
+                            <input type="text" placeholder="Write number name..." data-answer="four thousand ninety-eight">
+                        </div>
+                    </div>
+                    
+                    <div class="abacus-problem">
+                        <div class="problem-number">2.</div>
+                        <div class="abacus-container">
+                            <div class="abacus-frame">
+                                <div class="abacus-column">
+                                    <div class="column-header th">Th</div>
+                                    <div class="bead-area" data-place="thousands">
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                        <div class="bead" data-value="1000">●</div>
+                                    </div>
+                                    <div class="place-value">6</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header h">H</div>
+                                    <div class="bead-area" data-place="hundreds">
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                        <div class="bead inactive" data-value="100">○</div>
+                                    </div>
+                                    <div class="place-value">0</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header t">T</div>
+                                    <div class="bead-area" data-place="tens">
+                                        <div class="bead inactive" data-value="10">○</div>
+                                        <div class="bead inactive" data-value="10">○</div>
+                                        <div class="bead inactive" data-value="10">○</div>
+                                        <div class="bead inactive" data-value="10">○</div>
+                                        <div class="bead inactive" data-value="10">○</div>
+                                    </div>
+                                    <div class="place-value">0</div>
+                                </div>
+                                <div class="abacus-column">
+                                    <div class="column-header o">O</div>
+                                    <div class="bead-area" data-place="ones">
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                        <div class="bead" data-value="1">●</div>
+                                    </div>
+                                    <div class="place-value">5</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="number-name-input">
+                            <input type="text" placeholder="Write number name..." data-answer="six thousand five">
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkAbacusGame()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetAbacusGame()">Reset</button>
+                </div>
+                <div class="feedback" id="abacus-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Greatest and Smallest Numbers Game -->
+        <div class="game-container" id="greatest-smallest">
+            <div class="game-header">
+                <h2>4. Form the greatest and the smallest four-digit numbers.</h2>
+            </div>
+            <div class="game-content">
+                <div class="digit-sets">
+                    <div class="digit-set">
+                        <div class="set-label">(a) 4, 5, 2, 1</div>
+                        <div class="answer-boxes">
+                            <div class="answer-section">
+                                <h4>Greatest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                            <div class="answer-section">
+                                <h4>Smallest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="digit-set">
+                        <div class="set-label">(b) 0, 3, 1, 4</div>
+                        <div class="answer-boxes">
+                            <div class="answer-section">
+                                <h4>Greatest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                            <div class="answer-section">
+                                <h4>Smallest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="digit-set">
+                        <div class="set-label">(c) 8, 4, 6, 0</div>
+                        <div class="answer-boxes">
+                            <div class="answer-section">
+                                <h4>Greatest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                            <div class="answer-section">
+                                <h4>Smallest</h4>
+                                <div class="place-value-grid">
+                                    <div class="place-header">Th</div>
+                                    <div class="place-header">H</div>
+                                    <div class="place-header">T</div>
+                                    <div class="place-header">O</div>
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                    <input type="text" maxlength="1" class="digit-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkGreatestSmallest()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetGreatestSmallest()">Reset</button>
+                </div>
+                <div class="feedback" id="greatest-smallest-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Number Word Matching Game -->
+        <div class="game-container" id="number-word-match">
+            <div class="game-header">
+                <h2>2. Draw lines and match the following.</h2>
+            </div>
+            <div class="game-content">
+                <div class="matching-container">
+                    <div class="numbers-column">
+                        <div class="match-item number-item" data-value="8523">8,523</div>
+                        <div class="match-item number-item" data-value="3981">3,981</div>
+                        <div class="match-item number-item" data-value="4866">4,866</div>
+                        <div class="match-item number-item" data-value="9234">9,234</div>
+                    </div>
+                    <div class="words-column">
+                        <div class="match-item word-item" data-value="9234">Nine thousand, two hundred and thirty-four</div>
+                        <div class="match-item word-item" data-value="4866">Four thousand, eight hundred and sixty-six</div>
+                        <div class="match-item word-item" data-value="8523">Eight thousand, five hundred and twenty-three</div>
+                        <div class="match-item word-item" data-value="3981">Three thousand, nine hundred and eighty-one</div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkMatching()">Check Matches</button>
+                    <button class="btn-secondary" onclick="resetMatching()">Reset</button>
+                </div>
+                <div class="feedback" id="matching-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Digit Arrangement Game -->
+        <div class="game-container" id="digit-bags">
+            <div class="game-header">
+                <h2>8. Form the greatest four-digit numbers using these digits.</h2>
+            </div>
+            <div class="game-content">
+                <div class="bag-problems">
+                    <div class="bag-row">
+                        <div class="bag-problem">
+                            <div class="bag pink-bag">
+                                <div class="bag-label">(a)</div>
+                                <div class="digits">7, 2, 9, 1</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="9721" placeholder="____">
+                        </div>
+                        <div class="bag-problem">
+                            <div class="bag cyan-bag">
+                                <div class="bag-label">(b)</div>
+                                <div class="digits">1, 7, 0, 8</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="8710" placeholder="____">
+                        </div>
+                        <div class="bag-problem">
+                            <div class="bag yellow-bag">
+                                <div class="bag-label">(c)</div>
+                                <div class="digits">2, 4, 3, 5</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="5432" placeholder="____">
+                        </div>
+                    </div>
+                    <div class="bag-row">
+                        <div class="bag-problem">
+                            <div class="bag yellow-bag">
+                                <div class="bag-label">(d)</div>
+                                <div class="digits">6, 3, 1, 7</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="7631" placeholder="____">
+                        </div>
+                        <div class="bag-problem">
+                            <div class="bag pink-bag">
+                                <div class="bag-label">(e)</div>
+                                <div class="digits">5, 3, 9, 2</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="9532" placeholder="____">
+                        </div>
+                        <div class="bag-problem">
+                            <div class="bag cyan-bag">
+                                <div class="bag-label">(f)</div>
+                                <div class="digits">8, 4, 7, 3</div>
+                            </div>
+                            <input type="text" class="answer-input" data-answer="8743" placeholder="____">
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkDigitBags()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetDigitBags()">Reset</button>
+                </div>
+                <div class="feedback" id="digit-bags-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Shape Matching Game -->
+        <div class="game-container" id="shape-matching">
+            <div class="game-header">
+                <div class="try-this-badge">
+                    <span class="owl-mascot">🦉</span>
+                    <span class="try-text">TRY THIS</span>
+                </div>
+                <h2>1. Draw line and match the following.</h2>
+            </div>
+            <div class="game-content">
+                <div class="bear-matching-container">
+                    <div class="bear-column">
+                        <div class="bear-mascot">🐻</div>
+                        <div class="shape-names-list">
+                            <div class="shape-name-item" data-value="cube">Cube</div>
+                            <div class="shape-name-item" data-value="cuboid">Cuboid</div>
+                            <div class="shape-name-item" data-value="cylinder">Cylinder</div>
+                            <div class="shape-name-item" data-value="cone">Cone</div>
+                            <div class="shape-name-item" data-value="sphere">Sphere</div>
+                        </div>
+                    </div>
+                    <div class="objects-column">
+                        <div class="bear-mascot">🐻</div>
+                        <div class="shape-objects-list">
+                            <div class="shape-object-item" data-value="cube">🧊</div>
+                            <div class="shape-object-item" data-value="sphere">🍎</div>
+                            <div class="shape-object-item" data-value="cylinder">🥒</div>
+                            <div class="shape-object-item" data-value="cone">🍦</div>
+                            <div class="shape-object-item" data-value="cuboid">🧱</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkShapeMatching()">Check Matches</button>
+                    <button class="btn-secondary" onclick="resetShapeMatching()">Reset</button>
+                </div>
+                <div class="feedback" id="shape-matching-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Helicopter Coloring Game -->
+        <div class="game-container" id="helicopter-coloring">
+            <div class="game-header">
+                <div class="game-on-badge">
+                    <span class="bee-mascot">🐝</span>
+                    <span class="game-text">Game On!</span>
+                </div>
+                <h2>Colour the helicopter as per the given colour codes.</h2>
+            </div>
+            <div class="game-content">
+                <div class="color-codes">
+                    <div class="color-code" data-shape="triangle">🔺 = Pink</div>
+                    <div class="color-code" data-shape="rectangle">🔷 = Blue</div>
+                    <div class="color-code" data-shape="circle">🟡 = Yellow</div>
+                    <div class="color-code" data-shape="oval">🔴 = Red</div>
+                    <div class="color-code" data-shape="square">🟢 = Green</div>
+                </div>
+                <div class="helicopter-canvas">
+                    <svg viewBox="0 0 400 300" class="helicopter-svg">
+                        <!-- Helicopter outline -->
+                        <ellipse cx="200" cy="150" rx="80" ry="40" class="colorable-shape" data-shape="oval" fill="white" stroke="black" stroke-width="2"/>
+                        <rect x="150" y="130" width="100" height="40" class="colorable-shape" data-shape="rectangle" fill="white" stroke="black" stroke-width="2"/>
+                        <circle cx="320" cy="150" r="15" class="colorable-shape" data-shape="circle" fill="white" stroke="black" stroke-width="2"/>
+                        <rect x="280" y="140" width="20" height="20" class="colorable-shape" data-shape="square" fill="white" stroke="black" stroke-width="2"/>
+                        <polygon points="120,150 140,130 140,170" class="colorable-shape" data-shape="triangle" fill="white" stroke="black" stroke-width="2"/>
+                        <!-- Rotor -->
+                        <line x1="100" y1="120" x2="300" y2="120" stroke="black" stroke-width="3"/>
+                        <circle cx="200" cy="120" r="5" fill="black"/>
+                        <!-- Landing gear -->
+                        <rect x="180" y="180" width="40" height="8" fill="gray"/>
+                        <rect x="175" y="188" width="10" height="15" fill="gray"/>
+                        <rect x="215" y="188" width="10" height="15" fill="gray"/>
+                    </svg>
+                </div>
+                <div class="color-palette">
+                    <div class="color-btn" data-color="pink" style="background: #ff69b4;">Pink</div>
+                    <div class="color-btn" data-color="blue" style="background: #4169e1;">Blue</div>
+                    <div class="color-btn" data-color="yellow" style="background: #ffd700;">Yellow</div>
+                    <div class="color-btn" data-color="red" style="background: #ff4444;">Red</div>
+                    <div class="color-btn" data-color="green" style="background: #32cd32;">Green</div>
+                </div>
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkHelicopterColoring()">Check Colors</button>
+                    <button class="btn-secondary" onclick="resetHelicopterColoring()">Reset</button>
+                </div>
+                <div class="feedback" id="helicopter-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Shape Properties Game -->
+        <div class="game-container" id="shape-properties">
+            <div class="game-header">
+                <div class="worksheet-badge">
+                    <span class="owl-mascot">🦉</span>
+                    <span class="worksheet-text">Worksheet</span>
+                </div>
+            </div>
+            <div class="game-content">
+                <div class="properties-section">
+                    <h3>1. Tick shapes that have straight sides.</h3>
+                    <div class="shape-tick-options">
+                        <div class="tick-option">
+                            <div class="shape-display">🟠</div>
+                            <input type="checkbox" class="shape-checkbox" data-answer="false">
+                            <label>Circle</label>
+                        </div>
+                        <div class="tick-option">
+                            <div class="shape-display">⭕</div>
+                            <input type="checkbox" class="shape-checkbox" data-answer="false">
+                            <label>Ring</label>
+                        </div>
+                        <div class="tick-option">
+                            <div class="shape-display">📦</div>
+                            <input type="checkbox" class="shape-checkbox" data-answer="true">
+                            <label>Box</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="properties-section">
+                    <h3>2. Write an example of the following from your surroundings.</h3>
+                    <div class="example-inputs">
+                        <div class="example-item">
+                            <label>(a) Sphere:</label>
+                            <input type="text" class="example-input" data-answer="ball,orange,globe,marble" placeholder="e.g., ball">
+                        </div>
+                        <div class="example-item">
+                            <label>(b) Cube:</label>
+                            <input type="text" class="example-input" data-answer="dice,box,block,ice cube" placeholder="e.g., dice">
+                        </div>
+                        <div class="example-item">
+                            <label>(c) Cone:</label>
+                            <input type="text" class="example-input" data-answer="ice cream,traffic cone,party hat,funnel" placeholder="e.g., ice cream cone">
+                        </div>
+                        <div class="example-item">
+                            <label>(d) Cuboid:</label>
+                            <input type="text" class="example-input" data-answer="book,brick,phone,eraser" placeholder="e.g., book">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="properties-section">
+                    <h3>3. Which of these is not a circle?</h3>
+                    <div class="circle-options">
+                        <div class="circle-option">
+                            <div class="option-display">🟢</div>
+                            <input type="radio" name="not-circle" value="circle" class="circle-radio">
+                            <label>Green Circle</label>
+                        </div>
+                        <div class="circle-option">
+                            <div class="option-display">💵</div>
+                            <input type="radio" name="not-circle" value="money" class="circle-radio" data-correct="true">
+                            <label>Money</label>
+                        </div>
+                        <div class="circle-option">
+                            <div class="option-display">🔵</div>
+                            <input type="radio" name="not-circle" value="blue-circle" class="circle-radio">
+                            <label>Blue Circle</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkShapeProperties()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetShapeProperties()">Reset</button>
+                </div>
+                <div class="feedback" id="shape-properties-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Shape Analysis Table Game -->
+        <div class="game-container" id="shape-analysis">
+            <div class="game-header">
+                <h2>4. Look at these shapes. Write the number of sides and corners.</h2>
+            </div>
+            <div class="game-content">
+                <div class="analysis-table">
+                    <div class="table-header">
+                        <div class="header-cell">Shapes</div>
+                        <div class="header-cell">Number</div>
+                        <div class="header-cell">Number of corners</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="shape-cell">🔺</div>
+                        <input type="text" class="analysis-input" data-answer="3" placeholder="sides">
+                        <input type="text" class="analysis-input" data-answer="3" placeholder="corners">
+                    </div>
+                    <div class="table-row">
+                        <div class="shape-cell">🟥</div>
+                        <input type="text" class="analysis-input" data-answer="4" placeholder="sides">
+                        <input type="text" class="analysis-input" data-answer="4" placeholder="corners">
+                    </div>
+                    <div class="table-row">
+                        <div class="shape-cell">🔵</div>
+                        <input type="text" class="analysis-input" data-answer="0" placeholder="sides">
+                        <input type="text" class="analysis-input" data-answer="0" placeholder="corners">
+                    </div>
+                </div>
+                
+                <div class="tracing-section">
+                    <h3>5. Look at these objects. Colour the shape you will get on tracing them.</h3>
+                    <div class="tracing-pairs">
+                        <div class="tracing-pair">
+                            <div class="object">📦</div>
+                            <div class="trace-options">
+                                <div class="trace-shape" data-object="box" data-shape="square">⬜</div>
+                                <div class="trace-shape" data-object="box" data-shape="triangle">🔺</div>
+                                <div class="trace-shape" data-object="box" data-shape="circle">⚪</div>
+                            </div>
+                        </div>
+                        <div class="tracing-pair">
+                            <div class="object">🟠</div>
+                            <div class="trace-options">
+                                <div class="trace-shape" data-object="orange" data-shape="square">⬜</div>
+                                <div class="trace-shape" data-object="orange" data-shape="triangle">🔺</div>
+                                <div class="trace-shape" data-object="orange" data-shape="circle">⚪</div>
+                            </div>
+                        </div>
+                        <div class="tracing-pair">
+                            <div class="object">🧊</div>
+                            <div class="trace-options">
+                                <div class="trace-shape" data-object="cube" data-shape="square">⬜</div>
+                                <div class="trace-shape" data-object="cube" data-shape="triangle">🔺</div>
+                                <div class="trace-shape" data-object="cube" data-shape="circle">⚪</div>
+                            </div>
+                        </div>
+                        <div class="tracing-pair">
+                            <div class="object">🕐</div>
+                            <div class="trace-options">
+                                <div class="trace-shape" data-object="clock" data-shape="square">⬜</div>
+                                <div class="trace-shape" data-object="clock" data-shape="triangle">🔺</div>
+                                <div class="trace-shape" data-object="clock" data-shape="circle">⚪</div>
+                            </div>
+                        </div>
+                        <div class="tracing-pair">
+                            <div class="object">🧱</div>
+                            <div class="trace-options">
+                                <div class="trace-shape" data-object="brick" data-shape="rectangle">▭</div>
+                                <div class="trace-shape" data-object="brick" data-shape="triangle">🔺</div>
+                                <div class="trace-shape" data-object="brick" data-shape="circle">⚪</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkShapeAnalysis()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetShapeAnalysis()">Reset</button>
+                </div>
+                <div class="feedback" id="shape-analysis-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Object Properties Game -->
+        <div class="game-container" id="object-properties">
+            <div class="game-header">
+                <h2>Look at these objects and tick (✓) the correct option.</h2>
+            </div>
+            <div class="game-content">
+                <div class="properties-grid">
+                    <div class="property-item">
+                        <div class="object-display">🎲</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="cube-prop" value="slide" data-correct="false"> Slide</label>
+                            <label><input type="radio" name="cube-prop" value="roll" data-correct="true"> Roll</label>
+                            <label><input type="radio" name="cube-prop" value="both" data-correct="false"> Both</label>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item">
+                        <div class="object-display">🍋</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="lemon-prop" value="slide" data-correct="false"> Slide</label>
+                            <label><input type="radio" name="lemon-prop" value="roll" data-correct="true"> Roll</label>
+                            <label><input type="radio" name="lemon-prop" value="both" data-correct="false"> Both</label>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item">
+                        <div class="object-display">🍼</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="bottle-prop" value="slide" data-correct="false"> Slide</label>
+                            <label><input type="radio" name="bottle-prop" value="roll" data-correct="false"> Roll</label>
+                            <label><input type="radio" name="bottle-prop" value="both" data-correct="true"> Both</label>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item">
+                        <div class="object-display">📖</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="book-prop" value="slide" data-correct="true"> Slide</label>
+                            <label><input type="radio" name="book-prop" value="roll" data-correct="false"> Roll</label>
+                            <label><input type="radio" name="book-prop" value="both" data-correct="false"> Both</label>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item">
+                        <div class="object-display">⚽</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="ball-prop" value="slide" data-correct="false"> Slide</label>
+                            <label><input type="radio" name="ball-prop" value="roll" data-correct="true"> Roll</label>
+                            <label><input type="radio" name="ball-prop" value="both" data-correct="false"> Both</label>
+                        </div>
+                    </div>
+                    
+                    <div class="property-item">
+                        <div class="object-display">🥚</div>
+                        <div class="property-options">
+                            <label><input type="radio" name="egg-prop" value="slide" data-correct="false"> Slide</label>
+                            <label><input type="radio" name="egg-prop" value="roll" data-correct="true"> Roll</label>
+                            <label><input type="radio" name="egg-prop" value="both" data-correct="false"> Both</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="btn-primary" onclick="checkObjectProperties()">Check Answers</button>
+                    <button class="btn-secondary" onclick="resetObjectProperties()">Reset</button>
+                </div>
+                <div class="feedback" id="object-properties-feedback"></div>
+            </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score-container">
+            <div class="score">Score: <span id="total-score">0</span></div>
+            <div class="streak">Streak: <span id="streak-count">0</span> 🔥</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
